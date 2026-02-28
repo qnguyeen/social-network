@@ -1,0 +1,311 @@
+services:
+#  mysql:
+#    image: mysql:8.3
+#    container_name: mysql
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#    volumes:
+#      - mysql_data:/var/lib/mysql
+#    restart: always
+#  redis:
+#    image: redis:latest
+#    container_name: redis-container
+#    ports:
+#      - "6379:6379"
+#    restart: unless-stopped
+#
+##  mongodb:
+##    image: bitnami/mongodb:7.0
+##    container_name: mongodb
+##    ports:
+##      - "27017:27017"
+##    environment:
+##      MONGODB_ROOT_USER: root
+##      MONGODB_ROOT_PASSWORD: root
+##    volumes:
+##      - mongodb_data:/bitnami/mongodb
+##    restart: always
+##
+##  kafka:
+##    image: bitnami/kafka:latest
+##    container_name: kafka
+##    ports:
+##      - "9091:9091"     # Controller
+##      - "9092:9092"     # Host
+##      - "9093:9093"     # Docker internal
+##      - "9094:9094"     # Docker internal
+##    environment:
+##      KAFKA_CFG_PROCESS_ROLES: broker,controller
+##      KAFKA_CFG_NODE_ID: 1
+##      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,DOCKER:PLAINTEXT,HOST:PLAINTEXT
+##      KAFKA_CFG_LISTENERS: CONTROLLER://localhost:9091,HOST://0.0.0.0:9092,DOCKER://0.0.0.0:9093
+##      KAFKA_CFG_ADVERTISED_LISTENERS: HOST://localhost:9092,DOCKER://kafka:9093
+##      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+##      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@localhost:9091
+##      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: DOCKER
+##      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+##    volumes:
+##      - kafka_data:/bitnami/kafka
+##    restart: always
+##
+##  elasticsearch:
+##    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+##    container_name: elasticsearch
+##    ports:
+##      - "9200:9200"
+##    environment:
+##      discovery.type: single-node
+##      xpack.security.enabled: "false"
+##    restart: always
+##
+##  api-gateway:
+##    build:
+##      context: ./api-gateway
+##    container_name: api-gateway
+##    ports:
+##      - "8888:8888"
+##    depends_on:
+##      - identity-service
+##    restart: always
+##
+##  identity-service:
+##    build:
+##      context: ./identity-service
+##    container_name: identity-service
+##    ports:
+##      - "8080:8080"
+##    depends_on:
+##      - mysql
+##      - kafka
+##      - mongodb
+##    restart: always
+##
+##  profile-service:
+##    build:
+##      context: ./profile-service
+##    container_name: profile-service
+##    ports:
+##      - "8081:8081"
+##    depends_on:
+##      - mysql
+##      - kafka
+##    restart: always
+##
+##  notification-service:
+##    build:
+##      context: ./notification-service
+##    container_name: notification-service
+##    ports:
+##      - "8082:8082"
+##    depends_on:
+##      - mysql
+##      - kafka
+##      - mongodb
+##    restart: always
+##
+##  post-service:
+##    build:
+##      context: ./post-service
+##    container_name: post-service
+##    ports:
+##      - "8083:8083"
+##    depends_on:
+##      - kafka
+##      - elasticsearch
+##      - mongodb
+##    restart: always
+##
+##  ai-support:
+##    build:
+##      context: ./AiSupport
+##    container_name: ai-support
+##    ports:
+##      - "8084:8084"
+##    depends_on:
+##      - kafka
+##      - mysql
+##    restart: always
+##
+##  statistics-service:
+##    build:
+##      context: ./statistics-service
+##    container_name: statistics-service
+##    ports:
+##      - "8085:8085"
+##    depends_on:
+##      - kafka
+##    restart: always
+##
+##  donation-service:
+##    build:
+##      context: ./donation-service
+##    container_name: donation-service
+##    ports:
+##      - "8086:8086"
+##    depends_on:
+##      - mysql
+##    restart: always
+##
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: ngrok
+    command: http host.docker.internal:8888
+    environment:
+      - NGROK_AUTHTOKEN=2v1RrKFHNejDjm5RPAfnOF8YpH4_5qNKiJA1RihvSXrQ3RdDQ
+    ports:
+      - "4040:4040"
+    restart: always
+
+#networks:
+#  default:
+#    name: api-network
+#
+
+#volumes:
+#  mysql_data:
+#  mongodb_data:
+#  kafka_data:
+
+
+#  kafka:
+#    image: bitnami/kafka:latest
+#    container_name: kafka
+#    ports:
+#      - "9091:9091"     # Controller
+#      - "9092:9092"     # Host
+#      - "9093:9093"     # Docker internal
+#      - "9094:9094"     # Docker internal
+#    environment:
+#      KAFKA_CFG_PROCESS_ROLES: broker,controller
+#      KAFKA_CFG_NODE_ID: 1
+#      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,DOCKER:PLAINTEXT,HOST:PLAINTEXT
+#      KAFKA_CFG_LISTENERS: CONTROLLER://localhost:9091,HOST://0.0.0.0:9092,DOCKER://0.0.0.0:9093
+#      KAFKA_CFG_ADVERTISED_LISTENERS: HOST://localhost:9092,DOCKER://kafka:9093
+#      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+#      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@localhost:9091
+#      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: DOCKER
+#      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#    volumes:
+#      - kafka_data:/bitnami/kafka
+#    restart: always
+#
+
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+#    container_name: elasticsearch
+#    ports:
+#      - "9200:9200"
+#    environment:
+#      discovery.type: single-node
+#      xpack.security.enabled: "false"
+#    restart: always
+#
+#  api-gateway:
+#    build:
+#      context: ./api-gateway
+#    container_name: api-gateway
+#    ports:
+#      - "8888:8888"
+#    depends_on:
+#      - identity-service
+#    restart: always
+#
+#  identity-service:
+#    build:
+#      context: ./identity-service
+#    container_name: identity-service
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - mysql
+#      - kafka
+#      - mongodb
+#    restart: always
+#
+#  profile-service:
+#    build:
+#      context: ./profile-service
+#    container_name: profile-service
+#    ports:
+#      - "8081:8081"
+#    depends_on:
+#      - mysql
+#      - kafka
+#    restart: always
+#
+#  notification-service:
+#    build:
+#      context: ./notification-service
+#    container_name: notification-service
+#    ports:
+#      - "8082:8082"
+#    depends_on:
+#      - mysql
+#      - kafka
+#      - mongodb
+#    restart: always
+#
+#  post-service:
+#    build:
+#      context: ./post-service
+#    container_name: post-service
+#    ports:
+#      - "8083:8083"
+#    depends_on:
+#      - kafka
+#      - elasticsearch
+#      - mongodb
+#    restart: always
+#
+#  ai-support:
+#    build:
+#      context: ./AiSupport
+#    container_name: ai-support
+#    ports:
+#      - "8084:8084"
+#    depends_on:
+#      - kafka
+#      - mysql
+#    restart: always
+#
+#  statistics-service:
+#    build:
+#      context: ./statistics-service
+#    container_name: statistics-service
+#    ports:
+#      - "8085:8085"
+#    depends_on:
+#      - kafka
+#    restart: always
+#
+#  donation-service:
+#    build:
+#      context: ./donation-service
+#    container_name: donation-service
+#    ports:
+#      - "8086:8086"
+#    depends_on:
+#      - mysql
+#    restart: always
+#
+#  ngrok:
+#    image: ngrok/ngrok:latest
+#    container_name: ngrok
+#    command: http host.docker.internal:8888
+#    environment:
+#      - NGROK_AUTHTOKEN=2v1RrKFHNejDjm5RPAfnOF8YpH4_5qNKiJA1RihvSXrQ3RdDQ
+#    ports:
+#      - "4040:4040"
+#    restart: always
+
+networks:
+  default:
+    name: api-network
+
+volumes:
+  mysql_data:
+  mongodb_data:
+  kafka_data:
+

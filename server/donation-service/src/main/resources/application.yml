@@ -1,0 +1,117 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /donation
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/donation
+    driverClassName: "com.mysql.cj.jdbc.Driver"
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non_null
+  kafka:
+    bootstrap-servers: localhost:9094
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.LinkVerse.donation_service.dto
+  threads:
+    virtual:
+      enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dangngocduong2509@gmail.com
+    password: qenz zvxi qzdy lupo
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  notification:
+    email:
+      brevo-url: https://api.brevo.com
+      brevo-apikey: "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"
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA6GBMBKOW3YMI5YEQ
+      secret-key: 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
+    region:
+      static: us-east-2
+    stack:
+      auto: false
+
+application:
+  host-url: https://8c51-42-1-98-58.ngrok-free.app
+  bucket:
+    name: imgpost-2
+
+payment:
+  vnPay:
+    donation: # Cấu hình cho Donation
+      url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+      tmnCode: TCD2BDG9
+      secretKey: QJDDPPN2V8P4KDN04XJ2NVVDUV98CJ7Y
+      returnUrl: ${application.host-url}/api/v1/donation/payments/%s/vn-pay-callback
+      timeOut: 15
+    adDonation: # Cấu hình riêng cho AdDonation
+      url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+      tmnCode: TCD2BDG9
+      secretKey: QJDDPPN2V8P4KDN04XJ2NVVDUV98CJ7Y
+      returnUrl: ${application.host-url}/api/v1/donation/ad-payments/%s/vn-pay-callback
+      timeOut: 15
+
+telegram:
+  bot:
+    token: 7616261715:AAG6TwnlKn2Ww1nSDahD20YPbokxTA8-rhI
+    chat-id: 5616986488
+    webhook-url: ${application.host-url}/donation/telegram/webhook
+  ads-bot:
+    token: 7617308371:AAFpuGcp2jtTpScteOOAFqeFOqkW0jP2sDU
+    chat-id: 5616986488
+    webhook-url: ${application.host-url}/donation/telegram/ads/webhook
+
+app:
+  services:
+    profile: "http://localhost:8081/profile"
+    notification: "http://localhost:8082/notification"
+    post: "http://localhost:8083/post"
+
+feign:
+  client:
+    config:
+      default:
+        enable-caching: false
+
+gemini:
+  api:
+    key: AIzaSyCNl353aX69zYMv3kLU7i64rNLUnrCUAMI
+    url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+
+ai-support:
+  url: http://localhost:8084
+
+post:
+  url: "http://localhost:8083/post"

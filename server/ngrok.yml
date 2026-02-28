@@ -1,0 +1,6 @@
+authtoken: 2v1RrKFHNejDjm5RPAfnOF8YpH4_5qNKiJA1RihvSXrQ3RdDQ
+
+tunnels:
+  api-gateway:
+    proto: http
+    addr: host.docker.internal:8888
